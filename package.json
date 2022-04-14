@@ -1,6 +1,6 @@
 {
   "name": "vabu-js",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "description": "Easy JS validation using the builder pattern",
   "author": "Manuel Lorenzo",
   "homepage": "https://github.com/ManuLG/vabu-js",

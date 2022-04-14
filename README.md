@@ -1,4 +1,7 @@
-# VabuJS
+![image-removebg-preview (2)](https://user-images.githubusercontent.com/16776395/163463991-94478c57-6657-4a43-9dc6-27c7930aa330.png)
+
+[![npm version](https://badge.fury.io/js/vabu-js.svg)](https://badge.fury.io/js/vabu-js)
+![GitHub Workflow Status (event)](https://img.shields.io/github/workflow/status/ManuLG/vabu-js/NPM%20package%20publish)
 
 ## Description
 VabuJS is a validation libray that allows you to build complex validations in an easy and clear way
