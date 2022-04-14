@@ -1,4 +1,5 @@
 import GeneralConfig from './models/config/GeneralConfig'
+import ValidatorConfig from './models/config/ValidatorConfig'
 import GeneralValidators from './validators/general'
 
 import { ValidatorBuilder  } from './models/ValidatorBuilder'
@@ -12,5 +13,6 @@ export {
     ModelValidator,
     ValidatorBuilder,
     GeneralConfig,
+    ValidatorConfig,
     validators
 }
