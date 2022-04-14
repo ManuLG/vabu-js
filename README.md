@@ -1,5 +1,7 @@
 # VabuJS
 
+[![npm version](https://badge.fury.io/js/vabu-js.svg)](https://badge.fury.io/js/vabu-js)
+
 ## Description
 VabuJS is a validation libray that allows you to build complex validations in an easy and clear way
 
