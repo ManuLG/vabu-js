@@ -14,7 +14,6 @@ export class ValidatorBuilder {
     #errorMessageArray : String[] = []
 
     #valid : boolean | null = null
-    #errorMessage : String | null = null
     #currentErrorList : String[] = []
 
     #currentConfig: GeneralConfig
@@ -61,7 +60,7 @@ export class ValidatorBuilder {
     async validateAsync () : Promise<ValidatorBuilder> {
         if (!this.#valueHasBeenSet) throw new MissingValueException()
 
-        this.resetState()
+        this.#resetState()
 
         for (let index = 0; index < this.validatorsList.length; index++) {
             const currentValidation = this.validatorsList[index]
@@ -69,19 +68,26 @@ export class ValidatorBuilder {
 
             if (!currentValidationResult) {
                 this.#valid = false
-                this.#errorMessage = this.#errorMessageArray[index]
+                this.#currentErrorList.push(this.#errorMessageArray[index])
 
-                return this
+                if (this.#currentConfig.returnOnFirstError) {
+                    return this
+                }
             }
         }
-        this.#valid = true
+
+        // To ensure that the value is "false" and not a falsy one
+        if (this.#valid === null) {
+            this.#valid = true
+        }
+
         return this
     }
 
     validate () : ValidatorBuilder {
         if (!this.#valueHasBeenSet) throw new MissingValueException()
 
-        this.resetState()
+        this.#resetState()
         
         for (let index = 0; index < this.validatorsList.length; index++) {
             const currentValidation = this.validatorsList[index]
@@ -95,7 +101,6 @@ export class ValidatorBuilder {
 
             if (!currentValidationResult) {
                 this.#valid = false
-                this.#errorMessage = this.#errorMessageArray[index]
                 this.#currentErrorList.push(this.#errorMessageArray[index])
 
                 if (this.#currentConfig.returnOnFirstError) {
@@ -140,7 +145,7 @@ export class ValidatorBuilder {
     }
 
     getErrorMessage () : String {
-        return this.#errorMessage || ''
+        return this.#currentErrorList.length > 0 ? (this.#currentErrorList[0]) : ''
     }
 
     getErrorMessageList () : String[] {
@@ -161,10 +166,13 @@ export class ValidatorBuilder {
           .setErrorMessageArray([...this.#errorMessageArray])
     }
 
-    resetState () : void {
+    /**
+     * Helper method for clearing the current validation state
+     */
+    #resetState : Function =  () : void => {
         this.#valid = null
-        this.#errorMessage = ''
         this.#currentErrorList = []
     }
+
 
 }
