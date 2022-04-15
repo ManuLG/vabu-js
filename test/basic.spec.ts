@@ -25,8 +25,6 @@ describe('Basic testing', () => {
           .notNull({ errorMessage: 'custom'})
           .validate()
 
-          console.log(obj.getErrorMessageList())
-
         expect(obj.getErrorMessage()).toBe('custom')
     })
 
@@ -111,9 +109,19 @@ describe('Basic testing', () => {
           .minLength(2)
           .validate()
 
-          console.log(obj.getErrorMessageList())
-
         expect(obj.getErrorMessageList().length).toBe(1)
+    })
+
+    it ('Return on first error async', () => {
+        const obj = new ValidatorBuilder({ returnOnFirstError: true })
+          .setValue('')
+          .notEmpty()
+          .minLength(2)
+          .validateAsync()
+          .then(vali => {
+            expect(vali.getErrorMessageList().length).toBe(1)
+          })
+
     })
 
     it ('Not return on first error', () => {
@@ -122,9 +130,6 @@ describe('Basic testing', () => {
           .notEmpty()
           .minLength(2)
           .validate()
-
-          console.log('2', obj.getErrorMessageList())
-
 
         expect(obj.getErrorMessageList().length).toBe(2)
     })
@@ -136,8 +141,7 @@ describe('Basic testing', () => {
           .minLength(2)
           .validate()
 
-          console.log('1', obj.getErrorMessageList())
-
+        expect(obj.getErrorMessage().length).toBe(0)
         expect(obj.getErrorMessageList().length).toBe(0)
     })
 })
@@ -190,6 +194,34 @@ describe('NOT EMPTY', () => {
     beforeEach(() => {
         validator = new ValidatorBuilder()
           .notEmpty()
+    })
+})
+
+describe('EMAIL', () => {
+
+    let validator : ValidatorBuilder
+    const valuesToBeTested : any[] = [
+        { value: null, result: false},
+        { value: undefined, result: false},
+        { value: '', result: false},
+        { value: 'asd', result: false},
+        { value: [], result: false},
+        { value: [1, 2, 3], result: false},
+        { value: 'valid@email.com', result: true},
+        { value: 'valid.email@email.com', result: true},
+        { value: '1234@email.com', result: true},
+    ]
+
+    for (const valueObj of valuesToBeTested) {
+        it (`${valueObj.value} value`, () => {
+            validator.setValue(valueObj.value).validate()
+            expect(validator.isValid()).toBe(valueObj.result)
+        })
+    }
+
+    beforeEach(() => {
+        validator = new ValidatorBuilder()
+          .email()
     })
 })
 

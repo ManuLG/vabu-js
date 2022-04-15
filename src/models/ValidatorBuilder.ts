@@ -41,6 +41,10 @@ export class ValidatorBuilder {
         return this.genericValidation(GeneralValidators.maxLength(maxLength), config)
     }
 
+    email (config? : ValidatorConfig) : ValidatorBuilder {
+        return this.genericValidation(GeneralValidators.email, config)
+    } 
+
     each (customFunction : Function, config? : ValidatorConfig) : ValidatorBuilder {
         return this.genericValidation((val : any) => {
             if (Array.isArray(val)) {
