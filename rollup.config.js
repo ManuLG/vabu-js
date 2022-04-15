@@ -16,7 +16,7 @@ export default [
     plugins: [
       resolve(), //
       commonjs(),
-      typescript({ tsconfig: "./tsconfig.json", exclude: ["**/__tests__", "**/*.test.ts", "**/test-app/**"] }),
+      typescript({ tsconfig: "./tsconfig.json", exclude: ["**/__tests__", "**/*.test.ts", "**/test-app/**", "**/docs/**"] }),
     ],
   },
 
@@ -30,7 +30,7 @@ export default [
     plugins: [
       typescript({
         tsconfig: "./tsconfig.json",
-        exclude: ["**/__tests__", "**/*.test.ts", "**/test-app/**"]
+        exclude: ["**/__tests__", "**/*.test.ts", "**/test-app/**", "**/docs/**"]
       })
     ],
   },

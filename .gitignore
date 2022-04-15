@@ -4,7 +4,8 @@ node_modules
 # production
 build
 dist
-docs
+docs/dist/**
+docs/node_modules/**
 
 # debug
 npm-debug.log*
